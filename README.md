@@ -2,7 +2,7 @@
 
 ![Image of pi-topPULSE addon board](https://static.pi-top.com/images/pulse-small.png "Image of pi-topPULSE addon board")
 
-The pi-topPULSE accessory is available to purchase from the [pi-top website](https://pi-top.com/products/accessories).
+Visit the [pi-topPULSE product page](https://pi-top.com/products/pulse) on the pi-top website for more information.
 
 ## Table of Contents
 * [Quick Start](#quick-start)
@@ -48,7 +48,7 @@ pi-topPULSE is a 7x7 LED array, a speaker and a microphone. Additionally the dev
 
 All pi-topPULSE software and libraries are included and configured 'out-of-the-box' as standard on pi-topOS (released on or after 12-07-2017). Simply connect a pi-topPULSE to your pi-top, reboot if instructed to do so, and it will be automatically initialised and ready to produce light, capture and play audio. Volume control is handled by the operating system.
 
-Download the latest version of pi-topOS at [https://pi-top.com/products/dashboard#download](https://pi-top.com/products/dashboard#download).
+Download the latest version of pi-topOS at [https://pi-top.com/products/os#download](https://pi-top.com/products/os#download).
 
 As mentioned in the [Hardware Overview](#hardware), the speaker on the pi-topPULSE uses I2S. This requires some configuration, which will require a reboot from a typical Raspbian configuration using the default sound drivers. This is also true in reverse - if you have configured a pi-topPULSE and you wish to use the standard HDMI or 3.5mm sound outputs, you will require a reboot.
 
