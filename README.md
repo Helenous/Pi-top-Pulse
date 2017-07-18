@@ -105,3 +105,6 @@ Alternatively, if you are running Python in `IDLE`, please make sure you start L
 
 #### The red LED on the underside of my pi-topPULSE is on - what does this mean?
 * This LED indicates that the sampling rate of the microphone is set to 16kHz. By default, when plugged in, you will see that this LED is switched on, and can be used as a guide to show that it has not yet been initialised. Once initialised, the default sample rate is 22050Hz (~22KHz), and this is why the red LED is switched off. *Note: [pi-top's Amazon Alexa Voice Service integration](https://github.com/pi-top/Alexa-Voice-Service-Integration) uses 16kHz, which is denoted with the red LED being on. In this context, the red LED can be considered as an indicator that the pi-topPULSE is capturing audio.*
+
+#### Why can't I get my Bluetooth working after connecting a pi-topPULSE?
+* This is a known issue, and we are evaluating the best user experience for resolving this issue. In the meantime, this issue is captured [here](https://github.com/pi-top/pi-topPULSE/issues/4) - follow the instructions to re-enable Bluetooth.
