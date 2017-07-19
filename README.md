@@ -29,8 +29,8 @@ Visit the [pi-topPULSE product page](https://pi-top.com/products/pulse) on the p
 * Run the following commands in the terminal (with an internet connection):
 
 ```
-sudo apt-get update
-sudo apt-get install pt-pulse
+sudo apt update
+sudo apt install pt-pulse
 ```
 
 * Plug in pi-topPULSE
@@ -61,8 +61,8 @@ The `pt-pulse` package on pi-topOS installs and starts this background process, 
 The pi-topPULSE software exists on the Raspbian software repositories. Simply run the following commands at the terminal (and then reboot):
 
 ```
-sudo apt-get update
-sudo apt-get install pt-pulse
+sudo apt update
+sudo apt install pt-pulse
 ```
 
 If you prefer to manually install the packages or want to install a specific set of packages see the [Manual Configuration and Installation](https://github.com/pi-top/pi-topPULSE/wiki/Manual-Configuration-and-Installation) page on the wiki.
@@ -99,7 +99,7 @@ Alternatively, if you are running Python in `IDLE`, please make sure you start L
 * Currently, **pi-topPULSE is only supported on Raspberry Pi 3**. This is due to problems setting the UART clock speed on earlier Raspberry Pi models. It might be possible to get this to work on earlier versions, but this is not currently supported.
 
 #### I have installed pi-topPULSE software manually...
-* If you are running Linux kernel version 4.9.x previous to 4.9.35, pi-topPULSE [may not be fully functional](https://github.com/raspberrypi/linux/issues/1855). In particular, this issue prevents the pi-topPULSE LEDs from working. If you are experiencing this issue, please check your kernel version by typing `uname -r` at the terminal. You can update your kernel version to the latest by running `sudo apt-get install raspberrypi-kernel`.
+* If you are running Linux kernel version 4.9.x previous to 4.9.35, pi-topPULSE [may not be fully functional](https://github.com/raspberrypi/linux/issues/1855). In particular, this issue prevents the pi-topPULSE LEDs from working. If you are experiencing this issue, please check your kernel version by typing `uname -r` at the terminal. You can update your kernel version to the latest by running `sudo apt install raspberrypi-kernel`.
 
 * If you are attempting to use Python 3, and have installed manually, you need to ensure that you have the latest version of the PySerial module. Take a look at [the script](manual-install/upgrade-python3-pyserial) in the `manual-install` directory for how to do this.
 
