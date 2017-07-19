@@ -19,13 +19,13 @@ Visit the [pi-topPULSE product page](https://pi-top.com/products/pulse) on the p
 	* [Troubleshooting](#support-troubleshooting)
 
 ## Quick Start <a name="quick-start"></a>
-### pi-topOS
+### pi-topPULSE on pi-topOS
 * Boot into pi-topOS (released on or after 12-07-2017)
 * Plug in pi-topPULSE
 * Follow on-screen instructions, if necessary
 * Enjoy - check out the [examples](https://github.com/pi-top/pi-topPULSE/tree/master/examples) to see what you can do! And try asking Alexa questions via pi-topDASHBOARD!
 
-### Raspbian
+### pi-topPULSE on Raspbian
 * Run the following commands in the terminal (with an internet connection):
 
 ```
