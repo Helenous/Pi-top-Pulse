@@ -6,7 +6,6 @@ from math import pow
 import smbus
 import sys
 import time
-from numpy import uint8
 
 _bus_id = 1
 _device_addr = 0x24
@@ -31,7 +30,7 @@ def _debug_print(message):
 def _get_addr_for_bit(bit):
     if bit in [0,1,2,3]:
         _debug_print("bit:  " + str(bit))
-        addr = uint8(pow(2, bit))
+        addr = int(pow(2, bit))
         _debug_print("addr: " + str(addr))
         return addr
     else:
@@ -131,7 +130,7 @@ def _read_device_state():
 
         current_state = i2c_bus.read_byte(_device_addr) & 0x0F
 
-        return uint8(current_state)
+        return int(current_state)
 
     except:
         print("Error: There was a problem reading from the device")
