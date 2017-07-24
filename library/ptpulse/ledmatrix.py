@@ -422,13 +422,15 @@ def show():
     if attempt_to_show_early:
         print("Can't update pi-topPULSE LEDs more than 50/s. Waiting...")
 
+    pause_length = 0.001
+    wait_counter_length = ( 1 / (_max_freq * pause_length) )
     while not _show_enabled:
-        if wait_counter >= 50:
+        if wait_counter >= wait_counter_length:
             # Timer hasn't reset for some reason - force override
             _enable_show_state()
             break
         else:
-            time.sleep(0.001)
+            time.sleep(pause_length)
             wait_counter = wait_counter + 1
 
     if attempt_to_show_early:
