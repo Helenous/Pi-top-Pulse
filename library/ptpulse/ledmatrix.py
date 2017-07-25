@@ -323,6 +323,13 @@ def _disable_show_state():
 # EXTERNAL OPERATIONS #
 #######################
 
+def set_debug_print_state(debug_enable):
+    """Enable/disable debug prints"""
+
+    global _debug
+    _debug = debug_enable
+
+
 def brightness(new_brightness):
     """Set the display brightness between 0.0 and 1.0.
         :param new_brightness: Brightness from 0.0 to 1.0 (default 1.0)"""
