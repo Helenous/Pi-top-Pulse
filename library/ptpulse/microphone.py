@@ -236,6 +236,12 @@ def _record_audio():
 # EXTERNAL OPERATIONS #
 #######################
 
+def set_debug_print_state(debug_enable):
+    """Enable/disable debug prints"""
+
+    global _debug
+    _debug = debug_enable
+
 def record():
     """Start recording on the pi-topPULSE microphone."""
 
