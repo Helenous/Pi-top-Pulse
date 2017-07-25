@@ -425,7 +425,7 @@ def show():
     pause_length = 0.001
 
     # Scale wait time to _max_freq
-    wait_counter_length = math.ceil( float(1/(_max_freq*pause_length)) )
+    wait_counter_length = math.ceil( float(1 / float(_max_freq*pause_length)) )
 
     while not _show_enabled:
         if wait_counter >= wait_counter_length:
