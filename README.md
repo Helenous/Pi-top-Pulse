@@ -108,6 +108,3 @@ Alternatively, if you are running Python in `IDLE`, please make sure you start L
 
 #### Why can't I get my Bluetooth working after connecting a pi-topPULSE?
 * This is a known issue, and we are evaluating the best user experience for resolving this issue. In the meantime, this issue is captured [here](https://github.com/pi-top/pi-topPULSE/issues/4) - follow the instructions to re-enable Bluetooth.
-
-
-https://pinout.xyz/pinout/pi_toppulse
