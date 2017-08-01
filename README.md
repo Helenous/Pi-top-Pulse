@@ -18,7 +18,7 @@ Visit the [<b>pi-top</b>PULSE product page](https://pi-top.com/products/pulse) o
 	* [Links](#support-links)
 	* [Troubleshooting](#support-troubleshooting)
 
-## Quick Start <a name="quick-start"></a>
+## <a name="quick-start"></a> Quick Start
 ### pi-topPULSE on pi-topOS
 * Boot into <b>pi-top</b>OS (released on or after 12-07-2017)
 * Plug in <b>pi-top</b>PULSE
@@ -37,14 +37,14 @@ sudo apt install pt-pulse
 * Follow on-screen instructions, if necessary
 * Enjoy - check out the [examples](https://github.com/pi-top/pi-topPULSE/tree/master/examples) to see what you can do! See [here](https://github.com/pi-top/Alexa-Voice-Service-Integration) for more on using <b>pi-top</b>'s Alexa Voice Service integration.
 
-## Hardware Overview <a name="hardware"></a>
+## <a name="hardware"></a> Hardware Overview
 
 <b>pi-top</b>PULSE is a 7x7 LED array, a speaker and a microphone. Additionally the device features ambient lights which reflect the state of the LED array, 4 around the speaker, and 3 on the underside. <b>pi-top</b>PULSE uses a variety of interfaces to communicate with the Raspberry Pi: the speaker uses I2S, and the LEDs and microphone use serial (UART) - Tx and Rx respectively. <b>pi-top</b>PULSE can be used either as a HAT or as <b>pi-top</b> addon.
 
-[![Image of <b>pi-top</b>PULSE pin layout](https://static.pi-top.com/images/pulse-pinout.png "Jump to 'Documentation & Support' -> 'GPIO Pinout'")](#support-pinout)
+For information on the pi-topPULSE's GPIO pinout, see [here](https://pinout.xyz/pinout/pi_toppulse).
 
-## Software <a name="software"></a>
-### pi-topPULSE on pi-topOS <a name="software-pt-os"></a>
+## <a name="software"></a> Software
+### <a name="software-pt-os"></a> pi-topPULSE on pi-topOS
 
 All <b>pi-top</b>PULSE software and libraries are included and configured 'out-of-the-box' as standard on <b>pi-top</b>OS (released on or after 12-07-2017). Simply connect a <b>pi-top</b>PULSE to your <b>pi-top</b>, reboot if instructed to do so, and it will be automatically initialised and ready to produce light, capture and play audio. Volume control is handled by the operating system.
 
@@ -57,7 +57,7 @@ Automatic initialisation is performed by a software package called `pt-periphera
 
 The `pt-pulse` package on <b>pi-top</b>OS installs and starts this background process, as well as the Python library. In the case of <b>pi-top</b>PULSE, it enables I2S and configures UART for next boot, if not currently enabled/configured, and notifies the user if a reboot is required. If a reboot is not required, it will initialise the device.
 
-### pi-topPULSE on Raspbian <a name="software-raspbian"></a>
+### <a name="software-raspbian"></a> pi-topPULSE on Raspbian
 The <b>pi-top</b>PULSE software exists on the Raspbian software repositories. Simply run the following commands at the terminal (and then reboot):
 
 ```
@@ -67,17 +67,17 @@ sudo apt install pt-pulse
 
 If you prefer to manually install the packages or want to install a specific set of packages see the [Manual Configuration and Installation](https://github.com/pi-top/pi-topPULSE/wiki/Manual-Configuration-and-Installation) page on the wiki.
 
-### How it works - 'under the hood' <a name="software-how-it-works"></a>
+### <a name="software-how-it-works"></a> How it works - 'under the hood'
 For more information on how to use the library files, take a look at the [initialisation section of the 'Manual Configuration and Installation'](https://github.com/pi-top/pi-topPULSE/wiki/Manual-Configuration-and-Installation#using-the-software-library-to-manually-initialise-pi-toppulse) page on the wiki.
 Also check out the [examples](https://github.com/pi-top/pi-topPULSE/tree/master/examples) folder for guidance of what the library is capable of.
 
-## Using <b>pi-top</b>PULSE <a name="using"></a>
+## <a name="using"></a> Using <b>pi-top</b>PULSE
 
-### Amazon's Alexa Voice Service <a name="using-avs"></a>
+### <a name="using-avs"></a> Amazon's Alexa Voice Service
 
 See [here](https://github.com/pi-top/Alexa-Voice-Service-Integration) for more on using <b>pi-top</b>'s Alexa Voice Service integration.
 
-### Using a custom Python script <a name="using-script"></a>
+### <a name="using-script"></a> Using a custom Python script
 
 Using the `ptpulse` Python module requires root access to function. If you are running a script, make sure that you are running it with root access. You can do this with the "sudo" command:
 
@@ -88,12 +88,12 @@ Alternatively, if you are running Python in `IDLE`, please make sure you start L
 
 	sudo idle3
 
-## Documentation & Support <a name="support"></a>
-### Links <a name="support-links"></a>
-<!--* [GPIO Pinout](https://pinout.xyz/pinout/pi_toppulse) <a name="support-pinout"></a>-->
+## <a name="support"></a> Documentation & Support
+### <a name="support-links"></a> Links
+* [GPIO Pinout](https://pinout.xyz/pinout/pi_toppulse)
 * [Support](https://support.pi-top.com/)
 
-### Troubleshooting <a name="support-troubleshooting"></a>
+### <a name="support-troubleshooting"></a> Troubleshooting
 #### Why is my pi-topPULSE not working?
 
 * Currently, **<b>pi-top</b>PULSE is only supported on Raspberry Pi 3**. This is due to problems setting the UART clock speed on earlier Raspberry Pi models. It might be possible to get this to work on earlier versions, but this is not currently supported.
@@ -108,3 +108,6 @@ Alternatively, if you are running Python in `IDLE`, please make sure you start L
 
 #### Why can't I get my Bluetooth working after connecting a pi-topPULSE?
 * This is a known issue, and we are evaluating the best user experience for resolving this issue. In the meantime, this issue is captured [here](https://github.com/pi-top/pi-topPULSE/issues/4) - follow the instructions to re-enable Bluetooth.
+
+
+https://pinout.xyz/pinout/pi_toppulse
