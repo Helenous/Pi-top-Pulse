@@ -143,7 +143,7 @@ def _finalise_wav_file(file_path):
 def _thread_method():
     """INTERNAL. Thread method."""
 
-    _record_audio_file()
+    _record_audio_to_file()
 
 
 def _record_audio():
@@ -217,8 +217,8 @@ def _record_audio():
     else:
         print("Error: Could not find serial port - are you sure it's enabled?")
 
-def _record_audio_file():
-    """INTERNAL. Use the _record_audio generator to store audio to a temporary file"""
+def _record_audio_to_file():
+    """INTERNAL. Use the _record_audio generator to record audio to a temporary file"""
 
     global _temp_file_path
 
@@ -256,7 +256,7 @@ def set_debug_print_state(debug_enable):
     _debug = debug_enable
 
 def record():
-    """Start recording on the pi-topPULSE microphone."""
+    """Start recording on the pi-topPULSE microphone to a file"""
 
     global _thread_running
     global _continue_writing
@@ -274,8 +274,8 @@ def record():
     else:
         print("Microphone is already recording!")
 
-def record_async():
-    """Start recording on the pi-topPULSE microphone - async return generator"""
+def stream_audio():
+    """Start recording on the pi-topPULSE microphone - returns a generator yielding audio data as it is read in."""
 
     global _thread_running
     global _continue_writing
