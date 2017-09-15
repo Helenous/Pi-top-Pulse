@@ -30,7 +30,7 @@ def pause(length):
     sleep(length)
 
 
-def record(record_time, output_file, pause_time = 1):
+def record(record_time, output_file, pause_time=1):
     print("Recording audio for " + str(record_time) + "s...")
     ledmatrix.set_all(255, 0, 0)
     ledmatrix.show()
