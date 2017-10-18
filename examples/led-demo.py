@@ -31,21 +31,21 @@ import math
 import time
 from ptpulse import ledmatrix
 
-s_width,s_height=ledmatrix.get_shape()
+s_width, s_height = ledmatrix.get_shape()
 
 
 # twisty swirly goodness
 def swirl(x, y, step):
-    x -= (s_width/2)
-    y -= (s_height/2)
+    x -= (s_width / 2)
+    y -= (s_height / 2)
 
-    dist = math.sqrt(pow(x, 2)+pow(y,2)) / 2.0
+    dist = math.sqrt(pow(x, 2) + pow(y, 2)) / 2.0
     angle = (step / 10.0) + (dist * 1.5)
-    s = math.sin(angle);
-    c = math.cos(angle);
+    s = math.sin(angle)
+    c = math.cos(angle)
 
-    xs = x * c - y * s;
-    ys = x * s + y * c;
+    xs = x * c - y * s
+    ys = x * s + y * c
 
     r = abs(xs + ys)
     r = r * 64.0
@@ -54,23 +54,25 @@ def swirl(x, y, step):
     return (r, r + (s * 130), r + (c * 130))
 
 # roto-zooming checker board
+
+
 def checker(x, y, step):
-    x -= (s_width/2)
-    y -= (s_height/2)
+    x -= (s_width / 2)
+    y -= (s_height / 2)
 
     angle = (step / 10.0)
-    s = math.sin(angle);
-    c = math.cos(angle);
+    s = math.sin(angle)
+    c = math.cos(angle)
 
-    xs = x * c - y * s;
-    ys = x * s + y * c;
+    xs = x * c - y * s
+    ys = x * s + y * c
 
     xs -= math.sin(step / 200.0) * 40.0
     ys -= math.cos(step / 200.0) * 40.0
 
     scale = step % 20
     scale /= 20
-    scale = (math.sin(step / 50.0) / 8.0) + 0.25;
+    scale = (math.sin(step / 50.0) / 8.0) + 0.25
 
     xs *= scale
     ys *= scale
@@ -84,9 +86,11 @@ def checker(x, y, step):
     return (r * 255, g * 255, b * 255)
 
 # weeee waaaah
+
+
 def blues_and_twos(x, y, step):
-    x -= (s_width/2)
-    y -= (s_height/2)
+    x -= (s_width / 2)
+    y -= (s_height / 2)
 
     xs = (math.sin((x + step) / 10.0) / 2.0) + 1.0
     ys = (math.cos((y + step) / 10.0) / 2.0) + 1.0
@@ -103,6 +107,8 @@ def blues_and_twos(x, y, step):
     return (r * 255, (b + g) * 255, g * 255)
 
 # rainbow search spotlights
+
+
 def rainbow_search(x, y, step):
     xs = math.sin((step) / 100.0) * 20.0
     ys = math.cos((step) / 100.0) * 20.0
@@ -115,11 +121,13 @@ def rainbow_search(x, y, step):
     return (r * 255, g * 255, b * 255)
 
 # zoom tunnel
+
+
 def tunnel(x, y, step):
 
     speed = step / 100.0
-    x -= (s_width/2)
-    y -= (s_height/2)
+    x -= (s_width / 2)
+    y -= (s_height / 2)
 
     xo = math.sin(step / 27.0) * 2
     yo = math.cos(step / 18.0) * 2
@@ -138,18 +146,16 @@ def tunnel(x, y, step):
     if y > 0:
         angle += math.pi
 
-    angle /= 2 * math.pi # convert angle to 0...1 range
+    angle /= 2 * math.pi  # convert angle to 0...1 range
 
     shade = math.sqrt(math.pow(x, 2) + math.pow(y, 2)) / 2.1
     shade = 1 if shade > 1 else shade
-
 
     angle += speed
     depth = speed + (math.sqrt(math.pow(x, 2) + math.pow(y, 2)) / 10)
 
     col1 = colorsys.hsv_to_rgb((step % 255) / 255.0, 1, .8)
     col2 = colorsys.hsv_to_rgb((step % 255) / 255.0, 1, .3)
-
 
     col = col1 if int(abs(angle * 6.0)) % 2 == 0 else col2
 
