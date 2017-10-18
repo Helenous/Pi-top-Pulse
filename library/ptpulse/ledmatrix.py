@@ -319,6 +319,13 @@ def _disable_show_state():
 # EXTERNAL OPERATIONS #
 #######################
 
+def set_debug_print_state(debug_enable):
+    """Enable/disable debug prints"""
+
+    global _debug
+    _debug = debug_enable
+
+
 def brightness(new_brightness):
     """Set the display brightness between 0.0 and 1.0.
         :param new_brightness: Brightness from 0.0 to 1.0 (default 1.0)"""
@@ -388,7 +395,7 @@ def set_pixel(x, y, r, g, b):
     global _pixel_map
 
     new_r, new_g, new_b = _adjust_r_g_b_for_brightness_correction(r, g, b)
-    _pixel_map[x][y] = [new_r, new_g, new_b]
+    _pixel_map[y][x] = [new_r, new_g, new_b]
 
 
 def set_all(r, g, b):
@@ -423,7 +430,7 @@ def show():
     wait_counter_length = ceil(float(1 / float(_max_freq * pause_length)))
 
     while not _show_enabled:
-        if wait_counter >= 50:
+        if wait_counter >= wait_counter_length:
             # Timer hasn't reset for some reason - force override
             _enable_show_state()
             break
