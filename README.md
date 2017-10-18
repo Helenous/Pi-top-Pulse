@@ -31,9 +31,10 @@ Visit the [pi-topPULSE product page](https://pi-top.com/products/pulse) on the p
 #### pi-topPULSE on Raspbian
 * Run the following commands in the terminal (with an internet connection):
 
-## Software <a name="software"></a>
-### pi-topPULSE on pi-topOS <a name="software-pt-os"></a>
-All pi-topPULSE software and libraries are included and configured 'out-of-the-box' as standard on the latest version of pi-topOS (>= 23-06-2017).
+```
+sudo apt update
+sudo apt install pt-pulse
+```
 
 * Plug in pi-topPULSE
 * Follow on-screen instructions, if necessary
@@ -46,7 +47,7 @@ pi-topPULSE is a 7x7 LED grid, speaker and microphone combined into a single dev
 
 pi-topPULSE uses a variety of interfaces to communicate with the Raspberry Pi: the speaker uses I2S, and the LEDs and microphone use serial (UART), Tx and Rx respectively.
 
-Volume control is handled by the operating system. However, in order for the operating system to detect the soundcard device, another reboot is required after booting into 'I2S mode' for the first time.
+For information on the pi-topPULSE's GPIO pinout, see [here](https://pinout.xyz/pinout/pi_toppulse).
 
 #### Resources used by the pi-topPULSE
 
@@ -89,20 +90,13 @@ The pi-topPULSE software can be found on the Raspbian software repositories. To 
 
 
 ```
-from ptpulse import configuration as ptpulsecfg
-
-<<<<<<< HEAD
-if ptpulsecfg.reset_device_state(True):
-    print("Successfully enabled pi-topPULSE")
-else:
-    print("Failed to enable pi-topPULSE")
+sudo apt update
+sudo apt install pt-pulse
 ```
-**NOTE: all examples assume that the folder that the library is in is named** `ptpulse` **- change as appropriate, if required.**
-=======
+
 This will install the ptpulse Python library, as well as its dependencies, including pt-device-manager (see above).
 
 If you prefer to manually install the packages or want to install a specific set of packages see the [Manual Configuration and Installation](https://github.com/pi-top/pi-topPULSE/wiki/Manual-Configuration-and-Installation) page on the wiki.
->>>>>>> d52044d... Add links and references to Device Management
 
 #### <a name="software-how-it-works"></a> How it works - 'under the hood'
 For more information on how to use the library files, take a look at the [initialisation section of the 'Manual Configuration and Installation'](https://github.com/pi-top/pi-topPULSE/wiki/Manual-Configuration-and-Installation#using-the-software-library-to-manually-initialise-pi-toppulse) page on the wiki.
