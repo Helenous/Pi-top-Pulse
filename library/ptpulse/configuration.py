@@ -127,7 +127,7 @@ def _read_device_state():
 
         current_state = i2c_bus.read_byte(_device_addr) & 0x0F
 
-        return uint8(current_state)
+        return int(current_state)
 
     except:
         PTLogger.warning("Error: There was a problem reading from the device")
