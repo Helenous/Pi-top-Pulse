@@ -140,17 +140,11 @@ def _finalise_wav_file(file_path):
 def _thread_method():
     """INTERNAL. Thread method."""
 
-    _record_audio()
+    _record_audio_to_file()
 
 
 def _record_audio():
-    """INTERNAL. Open the serial port and capture audio data into a temp file."""
-
-    global _temp_file_path
-
-    temp_file_tuple = mkstemp()
-    close(temp_file_tuple[0])
-    _temp_file_path = temp_file_tuple[1]
+    """INTERNAL. Open the serial port and capture audio data. Function is a generator yielding data as it is read"""
 
     if path.exists('/dev/serial0'):
 
@@ -163,48 +157,54 @@ def _record_audio():
 
             try:
                 PTLogger.debug("Start recording")
+                
+                if serial_device.inWaiting():
+                    PTLogger.debug("Flushing input and starting from scratch")
+                    serial_device.flushInput()
 
-                with open(_temp_file_path, 'wb') as file:
+                PTLogger.debug("WRITING: wave data")
 
-                    PTLogger.debug("WRITING: initial header information")
-                    file.write(_init_header_information())
-
-                    if serial_device.inWaiting():
-                        PTLogger.debug("Flushing input and starting from scratch")
-                        serial_device.flushInput()
-
-                    PTLogger.debug("WRITING: wave data")
-
-                    while _continue_writing:
-                        while not serial_device.inWaiting():
-                            sleep(0.01)
-
-                        audio_output = serial_device.read(serial_device.inWaiting())
-                        data_to_write = ""
+                while _continue_writing:
+                    while not serial_device.inWaiting():
+                        time.sleep(0.01)
+                    
+                    audio_output = serial_device.read(serial_device.inWaiting())
+                    if sys.version_info >= (3, 0):
                         bytes_to_write = bytearray()
+                    else:
+                        bytes_to_write = ""
 
-                        for pcm_data_block in audio_output:
+                    for pcm_data_block in audio_output:
 
-                            if _bitrate == 16:
+                        if _bitrate == 16:
 
-                                pcm_data_int = 0
+                            pcm_data_int = 0
+                            if sys.version_info >= (3, 0):
                                 pcm_data_int = pcm_data_block
                                 scaled_val = int((pcm_data_int * 32768) / 255)
                                 bytes_to_write += _from_hex(_space_separated_little_endian(scaled_val, 2))
 
                             else:
+                                pcm_data_int = ord(pcm_data_block)
+                                scaled_val = int((pcm_data_int * 32768) / 255)
+                                bytes_to_write += _from_hex(_space_separated_little_endian(scaled_val, 2))
+                            
+                        else:
 
+                            if sys.version_info >= (3, 0):
                                 pcm_data_int = pcm_data_block
                                 bytes_to_write += _from_hex(_space_separated_little_endian(pcm_data_int, 1))
 
-                        file.write(bytes_to_write)
+                            else:
+                                pcm_data_int = ord(pcm_data_block)
+                                bytes_to_write += _from_hex(_space_separated_little_endian(pcm_data_int, 1))
 
-                        sleep(0.1)
+                    yield bytes(bytes_to_write)
+                    
+                    sleep(0.1)
 
             finally:
                 serial_device.close()
-
-                _finalise_wav_file(_temp_file_path)
 
                 PTLogger.debug("Finished Recording.")
 
@@ -214,13 +214,40 @@ def _record_audio():
     else:
         PTLogger.info("Error: Could not find serial port - are you sure it's enabled?")
 
+def _record_audio_to_file():
+    """INTERNAL. Use the _record_audio generator to record audio to a temporary file"""
+
+    global _temp_file_path
+
+    temp_file_tuple = mkstemp()
+    os.close(temp_file_tuple[0])
+    _temp_file_path = temp_file_tuple[1]
+
+    try:
+        _debug_print("Start recording")
+        
+        with open(_temp_file_path, 'wb') as file:
+
+            _debug_print("WRITING: initial header information")
+            file.write(_init_header_information())
+
+            _debug_print("WRITING: wave data")
+
+            for data in _record_audio():
+                file.write(data)
+
+    finally:
+
+        _finalise_wav_file(_temp_file_path)
+
+        _debug_print("Finished Recording.")
 
 #######################
 # EXTERNAL OPERATIONS #
 #######################
 
 def record():
-    """Start recording on the pi-topPULSE microphone."""
+    """Start recording on the pi-topPULSE microphone to a file"""
 
     global _thread_running
     global _continue_writing
@@ -230,7 +257,7 @@ def record():
         PTLogger.info("Error: pi-topPULSE is not initialised.")
         exit()
 
-    if _thread_running is False:
+    if _thread_running == False and _continue_writing == False:
         _thread_running = True
         _continue_writing = True
         _recording_thread = Thread(group=None, target=_thread_method)
@@ -238,6 +265,20 @@ def record():
     else:
         PTLogger.info("Microphone is already recording!")
 
+def stream_audio():
+    """Start recording on the pi-topPULSE microphone - returns a generator yielding audio data as it is read in."""
+
+    global _thread_running
+    global _continue_writing
+
+    if not configuration.mcu_enabled():
+        print("Error: pi-topPULSE is not initialised.")
+        sys.exit()
+    if _thread_running == False and _continue_writing == False:
+        _continue_writing = True
+        return _record_audio()
+    else:
+        print("Microphone is already recording!")
 
 def is_recording():
     """Returns recording state of the pi-topPULSE microphone."""
@@ -252,9 +293,10 @@ def stop():
     global _continue_writing
 
     _continue_writing = False
-    _recording_thread.join()
-    _thread_running = False
-
+    if _thread_running:
+        _recording_thread.join()
+        _thread_running = False
+    
 
 def save(file_path, overwrite=False):
     """Saves recorded audio to a file."""
