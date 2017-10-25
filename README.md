@@ -96,10 +96,10 @@ sudo apt install pt-pulse
 
 This will install the ptpulse Python library, as well as its dependencies, including pt-device-manager (see above).
 
-If you prefer to manually install the packages or want to install a specific set of packages see the [Manual Configuration and Installation](https://github.com/pi-top/pi-topPULSE/wiki/Manual-Configuration-and-Installation) page on the wiki.
+If you prefer to manually install the packages or want to install a specific set of packages see the [Manual Configuration and Installation](https://github.com/pi-top/pi-topPULSE/blob/master/manual-install/manual-configuration.md) instructions.
 
 #### <a name="software-how-it-works"></a> How it works - 'under the hood'
-For more information on how to use the library files, take a look at the [initialisation section of the 'Manual Configuration and Installation'](https://github.com/pi-top/pi-topPULSE/wiki/Manual-Configuration-and-Installation#using-the-software-library-to-manually-initialise-pi-toppulse) page on the wiki.
+For more information on how to use the library files, take a look at the [initialisation section of the 'Manual Configuration and Installation'](https://github.com/pi-top/pi-topPULSE/blob/master/manual-install/manual-configuration.md#using-the-software-library-to-manually-initialise-pi-toppulse) instructions.
 Also check out the [examples](https://github.com/pi-top/pi-topPULSE/tree/master/examples) folder for guidance of what the library is capable of.
 
 ## <a name="using"></a> Using pi-topPULSE
