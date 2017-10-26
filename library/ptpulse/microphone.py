@@ -206,7 +206,7 @@ def _record_audio_to_file():
     global _temp_file_path
 
     temp_file_tuple = mkstemp()
-    os.close(temp_file_tuple[0])
+    close(temp_file_tuple[0])
     _temp_file_path = temp_file_tuple[1]
 
     try:
@@ -259,7 +259,7 @@ def stream_audio():
 
     if not configuration.mcu_enabled():
         print("Error: pi-topPULSE is not initialised.")
-        sys.exit()
+        exit()
     if _thread_running == False and _continue_writing == False:
         _continue_writing = True
         return _record_audio_generator()
