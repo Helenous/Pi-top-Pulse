@@ -169,35 +169,21 @@ def _record_audio_generator():
                         sleep(0.01)
                     
                     audio_output = serial_device.read(serial_device.inWaiting())
-                    if sys.version_info >= (3, 0):
-                        bytes_to_write = bytearray()
-                    else:
-                        bytes_to_write = ""
+                    bytes_to_write = bytearray()
 
                     for pcm_data_block in audio_output:
 
                         if _bitrate == 16:
 
                             pcm_data_int = 0
-                            if sys.version_info >= (3, 0):
-                                pcm_data_int = pcm_data_block
-                                scaled_val = int((pcm_data_int * 32768) / 255)
-                                bytes_to_write += _from_hex(_space_separated_little_endian(scaled_val, 2))
-
-                            else:
-                                pcm_data_int = ord(pcm_data_block)
-                                scaled_val = int((pcm_data_int * 32768) / 255)
-                                bytes_to_write += _from_hex(_space_separated_little_endian(scaled_val, 2))
+                            pcm_data_int = pcm_data_block
+                            scaled_val = int((pcm_data_int * 32768) / 255)
+                            bytes_to_write += _from_hex(_space_separated_little_endian(scaled_val, 2))
                             
                         else:
 
-                            if sys.version_info >= (3, 0):
-                                pcm_data_int = pcm_data_block
-                                bytes_to_write += _from_hex(_space_separated_little_endian(pcm_data_int, 1))
-
-                            else:
-                                pcm_data_int = ord(pcm_data_block)
-                                bytes_to_write += _from_hex(_space_separated_little_endian(pcm_data_int, 1))
+                            pcm_data_int = pcm_data_block
+                            bytes_to_write += _from_hex(_space_separated_little_endian(pcm_data_int, 1))
 
                     yield bytes(bytes_to_write)
                     
