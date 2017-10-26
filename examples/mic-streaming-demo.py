@@ -22,13 +22,26 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+Basic example showing how the record_async
+generator(https://wiki.python.org/moin/Generators) function can be used to
+stream data from the microphone in realtime. In this example the function is
+used to produce a vertically scrolling audio level indicator.  
 """
 
+import statistics
 from ptpulse import microphone
 
 microphone.set_sample_rate_to_16khz()
 microphone.set_bit_rate_to_signed_16()
 
 audio_generator = microphone.record_async()
+sample = bytearray()
 for data in audio_generator:
-    print(data)
+    if len(sample) < 4000:
+        sample += data
+    else:
+        average = statistics.mean()
+        print(( (average/255) * 100) * '#')
+        sample = []
+        
