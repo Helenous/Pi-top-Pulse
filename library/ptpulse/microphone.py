@@ -131,7 +131,7 @@ def _finalise_wav_file(file_path):
     else:
         with open(file_path, 'rb+') as file:
 
-            PTLogger.debug("Updating header information...")
+            PTLogger.info("Updating header information...")
 
             _update_header_in_file(file, 4, size_of_data + 36)
             _update_header_in_file(file, 40, size_of_data)
@@ -143,12 +143,12 @@ def _thread_method():
     _record_audio_to_file()
 
 
-def _record_audio():
+def _record_audio_generator():
     """INTERNAL. Open the serial port and capture audio data. Function is a generator yielding data as it is read"""
 
     if path.exists('/dev/serial0'):
 
-        PTLogger.debug("Opening serial device...")
+        PTLogger.info("Opening serial device...")
 
         serial_device = serial.Serial(port='/dev/serial0', timeout=1, baudrate=250000, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS)
         serial_device_open = serial_device.isOpen()
@@ -156,7 +156,7 @@ def _record_audio():
         if serial_device_open is True:
 
             try:
-                PTLogger.debug("Start recording")
+                PTLogger.info("Start recording")
                 
                 if serial_device.inWaiting():
                     PTLogger.debug("Flushing input and starting from scratch")
@@ -206,7 +206,7 @@ def _record_audio():
             finally:
                 serial_device.close()
 
-                PTLogger.debug("Finished Recording.")
+                PTLogger.info("Finished Recording.")
 
         else:
             PTLogger.info("Error: Serial port failed to open")
@@ -215,7 +215,7 @@ def _record_audio():
         PTLogger.info("Error: Could not find serial port - are you sure it's enabled?")
 
 def _record_audio_to_file():
-    """INTERNAL. Use the _record_audio generator to record audio to a temporary file"""
+    """INTERNAL. Use _record_audio_generator to record audio to a temporary file"""
 
     global _temp_file_path
 
@@ -224,23 +224,23 @@ def _record_audio_to_file():
     _temp_file_path = temp_file_tuple[1]
 
     try:
-        _debug_print("Start recording")
+        PTLogger.info("Start recording")
         
         with open(_temp_file_path, 'wb') as file:
 
-            _debug_print("WRITING: initial header information")
+            PTLogger.debug("WRITING: initial header information")
             file.write(_init_header_information())
 
-            _debug_print("WRITING: wave data")
+            PTLogger.debug("WRITING: wave data")
 
-            for data in _record_audio():
+            for data in _record_audio_generator():
                 file.write(data)
 
     finally:
 
         _finalise_wav_file(_temp_file_path)
 
-        _debug_print("Finished Recording.")
+        PTLogger.info("Finished Recording.")
 
 #######################
 # EXTERNAL OPERATIONS #
@@ -276,9 +276,10 @@ def stream_audio():
         sys.exit()
     if _thread_running == False and _continue_writing == False:
         _continue_writing = True
-        return _record_audio()
+        return _record_audio_generator()
     else:
         print("Microphone is already recording!")
+        return None
 
 def is_recording():
     """Returns recording state of the pi-topPULSE microphone."""
