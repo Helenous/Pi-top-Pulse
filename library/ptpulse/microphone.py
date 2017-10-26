@@ -166,7 +166,7 @@ def _record_audio_generator():
 
                 while _continue_writing:
                     while not serial_device.inWaiting():
-                        time.sleep(0.01)
+                        sleep(0.01)
                     
                     audio_output = serial_device.read(serial_device.inWaiting())
                     if sys.version_info >= (3, 0):
