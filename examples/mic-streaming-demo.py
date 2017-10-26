@@ -41,7 +41,6 @@ for data in audio_generator:
     if len(sample) < 4000:
         sample += data
     else:
-        average = statistics.mean()
-        print(( (average/255) * 100) * '#')
+        average = statistics.mean(sample)
+        print((average/255) * 100)
         sample = []
-        
