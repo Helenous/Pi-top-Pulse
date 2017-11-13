@@ -1,3 +1,3 @@
 #!/bin/bash -e
 
-pip3 install pyserial --upgrade
+pip3 install /tmp/pyserial-3.4-py2.py3-none-any.whl --upgrade
