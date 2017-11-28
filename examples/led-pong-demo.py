@@ -23,9 +23,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import colorsys
-import math
-import time
+from time import sleep
 from random import randint
 from ptpulse import ledmatrix
 
@@ -153,10 +151,10 @@ def flash_screen(rgb_tuple):
     for i in range(5):
         ledmatrix.set_all(rgb_tuple[0], rgb_tuple[1], rgb_tuple[2])
         ledmatrix.show()
-        time.sleep(0.2)
+        sleep(0.2)
         ledmatrix.set_all(background_color[0], background_color[1], background_color[2])
         ledmatrix.show()
-        time.sleep(0.2)
+        sleep(0.2)
 
 
 game_state = PongGameState()
@@ -205,4 +203,4 @@ while (True):
             draw_bats()
             ledmatrix.show()
 
-            time.sleep(0.05)
+            sleep(0.05)
